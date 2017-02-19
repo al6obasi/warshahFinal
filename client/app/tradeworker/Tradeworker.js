@@ -1,6 +1,6 @@
- angular.module('myapp.TradeworkerContr',[])
+ angular.module('myapp.TradeworkerController',[])
 
-.controller('TradeworkerContr',function ($scope,$http,$location, Tradeworker){
+.controller('TradeworkerController',function ($scope,$http,$location, Tradeworker){
 	$scope.tradeworker = {};
 	$scope.allTradeWorker = {};
 
