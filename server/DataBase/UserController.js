@@ -1,100 +1,86 @@
-<<<<<<< HEAD
-var User = require ('./UserModel');
+var Q = require('q');
+var jwt = require('jwt-simple');
+var User = require('./UserModel.js');
+
+
+// Promisify a few mongoose methods with the `q` promise library
+var findUser = Q.nbind(User.findOne, User);
+var createUser = Q.nbind(User.create, User);
 
 module.exports = {
-	
-	 signin : function(req, res) {
+  signin: function (req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
 
-    User.findOne({username: username})
+    findUser({username: username})
       .then(function (user) {
         if (!user) {
-          res.json("user not found")
+          next(new Error('User does not exist'));
         } else {
-          user.comparePasswords(password)
-            .then(function (isMatch) {
-              if (isMatch) {
-                // var token = jwt.encode(user, 'secret');
-                // res.json({token : token});
-                res.status(200).json(user);
+          return user.comparePasswords(password)
+            .then(function (foundUser) {
+              if (foundUser) {
+                var token = jwt.encode(user, 'secret');
+                res.json({token: token});
               } else {
-                res.json("password not matched")
+                return next(new Error('No user'));
               }
             });
         }
+      })
+      .fail(function (error) {
+        next(error);
       });
   },
-	
-	signup: function(req, res) {
+
+  signup: function (req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
-    var name = req.body.name;
-
+console.log(req.body)
     // check to see if user already exists
-    User.findOne({username: username})
-      .exec(function (err, user) {
+    findUser({username: username})
+      .then(function (user) {
         if (user) {
-          res.json('User already exist!');
+          next(new Error('User already exist!'));
         } else {
           // make a new user if not one
-          return User.create({
+          return createUser({
             username: username,
-            password: password,
-            name: name
-          }, function (err, newUser) {
-              // create token to send back for auth
-              if(err){
-                res.json(err);
-              } else {
-                // var token = jwt.encode(user, 'secret');
-                // res.json({token: token}); 
-                res.status(200).json(user);
-              }     
+            password: password
           });
         }
+      })
+      .then(function (user) {
+        // create token to send back for auth
+        var token = jwt.encode(user, 'secret');
+        res.json({token: token});
+      })
+      .fail(function (error) {
+        next(error);
       });
   },
-=======
-// var User = require ('./UserModel');
 
-// module.exports = {
-	
-// 	signin : function (req, res, next) {
-// 		User.findOne({username : req.body.username})
-//  			.exec(function (error, user) {
-// 	 			if(user){
-// 	 				next(new Error('User already exist!'));
-// 	 			}else{
-// 					var newUser = new User ({
-// 						username : req.body.username,
-// 			        	password : req.body.password,
-// 			        	email : req.body.email 
-// 					});
-// 					newUser.save(function(err, newUser){
-// 			    		if(err){
-// 			       		 	res.status(500).send(err);
-// 			    		}else{
-// 			    			res.json(newUser)
-// 			    		};
-// 					});
-// 				}
-// 			})
-// 	},
-	
-// 	signup: function (req, res, next) {
-// 		var username = req.body.username;
-// 		var password = req.body.password;
-// 		// check to see if user already exists
-// 		findOne({username: req.body.username})
-// 		.then(function (user) {
-// 			if (user) {
-// 				new Error('User already exist!');
-// 			}else{
-// 			// make a new user if not one
-// 			signin();
-// 			}
-// 		})
-// 	},
-// }
-// >>>>>>> 0ac7d5c2237ac67cb17c929c4d3cedfd6d7bed95
+  checkAuth: function (req, res, next) {
+    // checking to see if the user is authenticated
+    // grab the token in the header is any
+    // then decode the token, which we end up being the user object
+    // check to see if that user exists in the database
+    var token = req.headers['x-access-token'];
+    if (!token) {
+      next(new Error('No token'));
+    } else {
+      var user = jwt.decode(token, 'secret');
+      findUser({username: user.username})
+        .then(function (foundUser) {
+          if (foundUser) {
+            res.send(200);
+          } else {
+            res.send(401);
+          }
+        })
+        .fail(function (error) {
+          next(error);
+        });
+    }
+  }
+};

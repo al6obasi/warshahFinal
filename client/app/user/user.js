@@ -3,7 +3,7 @@
 //make a controller called (usercontr) inside myapp module
 // the controller has a dependencies ['$scope','$http','$location','$roteparams',
 //                                     function ($scope,$http,$location,$roteparams){}]	
-.controller('user',function ($scope,$http,$location,User){
+.controller('userController',function ($scope,$http,$location,User){
 	$scope.user = {};
 
 	  $scope.signin = function () {

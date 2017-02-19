@@ -1,6 +1,6 @@
 {
   "name": "warsha",
-  "version": "1.1.0",
+  "version": "19.2.17",
   "description": "Build out the front end of a MEAN stack app",
   "engines": {
     "node": ">=4.0.0"
@@ -13,6 +13,7 @@
     "body-parser": "^1.4.3",
     "express": "^4.4.5",
     "jwt-simple": "^0.5.0",
+    "mongodb": "^2.2.24",
     "mongoose": "^4.1.0",
     "morgan": "^1.1.1",
     "q": "^1.4.1",
@@ -39,4 +40,3 @@
     "sinon": "^1.17.2"
   }
 }
-
