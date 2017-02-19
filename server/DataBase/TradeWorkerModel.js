@@ -29,9 +29,6 @@ var TradeWorkerSchema = new mongoose.Schema({
 	},
 	experiance:{
 		type     : String
-	},
-	picture:{
-		type     : String
 	}
 
 }); 
