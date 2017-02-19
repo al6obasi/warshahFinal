@@ -6,7 +6,8 @@
     "node": ">=4.0.0"
   },
   "scripts": {
-    "postinstall": "npm install; bower install; npm install -g gulp karma karma-cli nodemon; npm install -g express"
+    "postinstall": "npm install; bower install; npm install -g gulp karma karma-cli nodemon; npm install -g express",
+    "start": "nodemon server/server.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",

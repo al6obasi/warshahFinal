@@ -8,7 +8,7 @@ app.controller('MainController', ['$scope', function($scope) {
     service:"Carpenter",
     phone:"0786799045",
     experiance:"one year",
-    photo:"/image/service1.jpg"
+    
     },
     {
     username:"Mohammad",
