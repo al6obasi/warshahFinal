@@ -61,3 +61,30 @@ angular.module('warshah.services', [])
     getAll : getAll
   }
 })
+
+.factory('Comments',function ($http, $location) {
+
+  var insert = function (Comment) {
+    return $http({
+      method : 'POST',
+      url : '/api/insertC',
+      data : Comment
+    }).then(function (resp) {
+      return resp.data
+    })
+  },
+
+  var getAll = function () {
+    return $http({
+      method : 'GET',
+      url : '/api/allC'
+    }).then(function (resp) {
+      return resp.data
+    })
+  }
+
+  return {
+    insert : insertC,
+    getAll : allC
+  }
+})

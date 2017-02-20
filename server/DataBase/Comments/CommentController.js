@@ -10,8 +10,8 @@ module.exports = {
 	 			
 					var newComment = new Comment ({
 						text: req.body.text,
-			        	postedBy:req.body.user,
-			        	tradeWorkerId : req.body.tradeworker,
+			        	postedBy:req.body.postedby,
+			        	tradeWorkerId : req.body.tradeWorkerId,
 			        	
 					});
 					newComment.save(function(err, newComment){
@@ -25,7 +25,8 @@ module.exports = {
 			})
 	},
 	getAllCommentsByTWID : function (req, res) {
-		Comment.find({_id:id}).exec(function (err, allComment) {
+	
+		Comment.find({tradeWorkerId:req.params.id}).exec(function (err, allComment) {
 			if(err){
 				res.status(500).send('err');
 			}else{
