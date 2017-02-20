@@ -1,7 +1,7 @@
 var express = require('express')
 var mongoose = require('mongoose');
 var server = require('http').createServer(app);//
-var port = process.env.PORT || 4567;//
+var port = process.env.PORT || 3000;//
 var app = express();
 
 
@@ -17,9 +17,14 @@ db.once('open',function () {
 });
 
 
+app.get('/api/all',function(req,res){
+mongoose.model('TradeWorker').find({}).then(function(err, users){
+	res.send(users)
+})
 
+})
 
 ////////////////////server////////////////////////////
 app.listen(port, function () {
-  console.log(' app listening on port 4567!');//
+  console.log(' app listening on port 3000 !');//
 })

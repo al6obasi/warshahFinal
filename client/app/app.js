@@ -13,6 +13,10 @@
 		templateUrl:'app/user/login.html',
 		controller:'userController'                  
 	})
+	.when('/home',{
+		templateUrl:'app/home/home.html',
+		controller:'userController'                  
+	})
 	.when('/signin',{
 		templateUrl:'/app/user/login.html',
 		controller:'userController'                  
@@ -34,3 +38,7 @@
 	})
 	
 })
+
+// .controller('checkCtrl'function (argument) {
+// 	// body...
+// })
