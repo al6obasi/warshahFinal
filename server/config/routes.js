@@ -1,6 +1,6 @@
-var UserController = require('../DataBase/UserController.js');
- var TradeWorkerController = require('../DataBase/TradeWorkerController.js');
- var CommentController = require('../DataBase/CommentController.js')
+var UserController = require('../DataBase/User/UserController.js');
+ var TradeWorkerController = require('../DataBase/TradeWorker/TradeWorkerController.js');
+ var CommentController = require('../DataBase/Comments/CommentController.js')
 
 
 module.exports = function (app, express) {
@@ -14,7 +14,7 @@ module.exports = function (app, express) {
 	 	app.get('/api/all',TradeWorkerController.getAllTradeWorker);
 
 	 	app.post('/api/insertC',CommentController.insert);
-	 app.get('/api/allC',CommentController.getAllCommentsByTWID);
+		app.get('/api/allC/:id',CommentController.getAllCommentsByTWID);
 };
 
 

@@ -3,11 +3,13 @@
 {
 username: "Lolo",
 
-password: "123"
+password: "123",
+salt: "aaaaaaaaaaaa"
 },
 {
 username: "mimi",
 
-password: "1234"
+password: "1234",
+salt: "bbbbbbbbbbbb"
 }
 ]

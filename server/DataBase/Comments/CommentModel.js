@@ -18,6 +18,6 @@ var CommentSchema = new mongoose.Schema({
     }
 }); 
 
-var Comment = mongoose.model('Comment',CommentSchema)
+var Comment = mongoose.model('Comment', CommentSchema)
 module.exports = Comment ; 
 
