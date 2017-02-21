@@ -11,8 +11,7 @@ module.exports = {
 			        	place : req.body.place,
 			        	service : req.body.service,
 			        	phone : req.body.phone,
-			        	experiance : req.body.experiance,
-			        	picture: req.body.picture 
+			        	experiance : req.body.experiance
 					});
 					newTradeWorker.save(function(err, newTradeWorker){
 			    		if(err){

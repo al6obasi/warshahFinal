@@ -29,8 +29,10 @@ var TradeWorkerSchema = new mongoose.Schema({
 	},
 	experiance:{
 		type     : String
+	},
+	rating:{
+		type     : Array
 	}
-
 }); 
 
 var TradeWorker = mongoose.model('TradeWorker',TradeWorkerSchema)
